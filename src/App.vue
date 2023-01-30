@@ -1,32 +1,34 @@
 <template>
-  <div id="app">
-    <nav>
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </nav>
-    <router-view/>
-  </div>
+  <v-app>
+    <Navbar
+      class="index"
+      @openCart="$store.state.drawer = !$store.state.drawer"
+    />
+    <!-- <router-view /> -->
+    <v-main>
+      <router-view />
+    </v-main>
+    <Popupcart @updateDrawer="updateDrawer" />
+  </v-app>
 </template>
 
-<style lang="scss">
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
+<script>
+import Navbar from "@/components/Navbar.vue";
+import Popupcart from "@/components/Popupcart.vue";
+export default {
+  name: "App",
+  components: { Navbar, Popupcart },
+  data() {
+    return {};
+  },
+  methods: {
+    updateDrawer(value) {
+      this.$store.state.drawer = value;
+    },
+  },
+};
+</script>
 
-nav {
-  padding: 30px;
-
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-
-    &.router-link-exact-active {
-      color: #42b983;
-    }
-  }
-}
+<style>
+@import "@/assets/reset.css";
 </style>
